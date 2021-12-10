@@ -1,0 +1,16 @@
+{% if changes_length == 1 %}
+<i>New {{status}} change at</i> <a href="{{project_url}}">{{project}}</a>
+{% else %}
+<i>New {{changes_length}} {{status}} changes at</i> <a href="{{project_url}}">{{project}}</a>
+{% endif %}
+Branch: <b>{{branch}}</b>
+
+{% for change in changes %}
+<a href="{{gerrit_url}}/{{change["_number"]}}"><b>{{change["subject_sanitized"]}}</b></a>
+<i>by</i> <a href="{{gerrit_url}}/q/owner:{{change["owner"]["_account_id"]}}">{{change["account_name"]}}</a>
+
+{% endfor %}
+{% if changes_length > max_changes %}
+
+<a href="{{project_url}}">Show more</a>
+{% endif %}
